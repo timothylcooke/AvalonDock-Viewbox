@@ -1,0 +1,57 @@
+﻿<Window x:Class="AvalonDock_Viewbox.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalon="https://github.com/Dirkster99/AvalonDock"
+        mc:Ignorable="d"
+        Title="MainWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Background="White">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="20">
+            <RadioButton Content="100% Zoom (No Viewbox parent)" Checked="Set100PercentZoomRemoveFromZoombox" />
+            <RadioButton Content="100% Zoom (within Viewbox)" Checked="Set100PercentZoom" IsChecked="True" Margin="0,10" />
+            <RadioButton Content="150% Zoom" Checked="Set150PercentZoom" />
+            <RadioButton Content="200% Zoom" Checked="Set200PercentZoom" Margin="0,10" />
+            <RadioButton Content="250% Zoom" Checked="Set250PercentZoom" />
+        </StackPanel>
+        <Grid x:Name="ViewboxParent">
+            <Viewbox x:Name="Viewbox" Height="{Binding Height, ElementName=ViewboxContent}" Width="{Binding Width, ElementName=ViewboxContent}">
+                <DockPanel x:Name="ViewboxContent" Height="300" Width="400" Background="Gray">
+                    <Border Margin="20" Background="White">
+                        <avalon:DockingManager x:Name="Dock">
+                            <DockingManager.Theme>
+                                <avalon:MetroTheme />
+                            </DockingManager.Theme>
+                            <LayoutRoot>
+                                <LayoutPanel x:Name="RootLayoutPanel">
+                                    <LayoutAnchorablePaneGroup Orientation="Horizontal">
+                                        <LayoutAnchorablePane>
+                                            <LayoutAnchorable Title="Anchorable1">
+                                                <TextBlock Text="Hello, world!" />
+                                            </LayoutAnchorable>
+                                            <LayoutAnchorable Title="Anchorable2">
+                                                <TextBlock Text="Hello, world (2)!" />
+                                            </LayoutAnchorable>
+                                        </LayoutAnchorablePane>
+                                    </LayoutAnchorablePaneGroup>
+                                </LayoutPanel>
+                                <LayoutRoot.LeftSide>
+                                    <LayoutAnchorSide>
+                                        <LayoutAnchorGroup>
+                                            <LayoutAnchorable Title="AutoHiddenAnchorable" AutoHideWidth="200">
+                                                <StackPanel>
+                                                    <TextBlock Text="Hello, world!" />
+                                                    <Button Content="Fix Zoom" Click="FixZoom" />
+                                                </StackPanel>
+                                            </LayoutAnchorable>
+                                        </LayoutAnchorGroup>
+                                    </LayoutAnchorSide>
+                                </LayoutRoot.LeftSide>
+                            </LayoutRoot>
+                        </avalon:DockingManager>
+                    </Border>
+                </DockPanel>
+            </Viewbox>
+        </Grid>
+    </DockPanel>
+</Window>
